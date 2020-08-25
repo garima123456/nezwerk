@@ -1,2 +1,4 @@
+include ':sinch-android-rtc-3.17.4'
+include ':ezyzip'
 include ':app'
 rootProject.name = "Nezwerk"
