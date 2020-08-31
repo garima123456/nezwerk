@@ -1,16 +1,9 @@
 package com.example.nezwerk;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +11,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -30,13 +28,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
-//import com.google.firestore.v1beta1.FirestoreGrpc;
-
-import java.net.URI;
 
 import javax.annotation.Nullable;
+
+//import com.google.firestore.v1beta1.FirestoreGrpc;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity" ;
@@ -49,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     Button resetPassLocal,changeProfileImage;
     FirebaseUser user;
     StorageReference storageReference;
+    Button callMenu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         resetPassLocal = findViewById(R.id.resetPasswordLocal);
         profileImage = findViewById(R.id.profileImage);
         changeProfileImage = findViewById(R.id.changeProfile);
-
+        callMenu=findViewById(R.id.mCallMenuButton);
         fAuth=FirebaseAuth.getInstance();
         fStore= FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -158,6 +155,12 @@ public class MainActivity extends AppCompatActivity {
                 i.putExtra("phone",phone.getText().toString());
                 startActivity(i);
 
+            }
+        });
+        callMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),ActivityCalling.class));
             }
         });
     }

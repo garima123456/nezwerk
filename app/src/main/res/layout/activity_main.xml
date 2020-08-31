@@ -82,6 +82,18 @@
         app:layout_constraintStart_toEndOf="@+id/imageView3"
         app:layout_constraintTop_toBottomOf="@+id/profileName" />
 
+    <Button
+        android:id="@+id/mCallMenuButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="53dp"
+        android:text="Call menu"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
     <TextView
         android:id="@+id/profilePhone"
         android:layout_width="0dp"
@@ -126,6 +138,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/verifyMsg" />
 
+
     <Button
         android:id="@+id/resetPasswordLocal"
         android:layout_width="0dp"
@@ -139,7 +152,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/changeProfile"
         app:layout_constraintVertical_bias="1.0" />
-
 
     <ImageView
         android:id="@+id/imageView3"
@@ -172,10 +184,10 @@
         android:text="Edit Profile"
         app:layout_constraintBottom_toBottomOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profilePhone"
-        app:layout_constraintVertical_bias="0.27" />
+        app:layout_constraintVertical_bias="0.552" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

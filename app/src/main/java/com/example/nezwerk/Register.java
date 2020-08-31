@@ -1,8 +1,5 @@
 package com.example.nezwerk;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,6 +11,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.nezwerk.Models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -21,7 +22,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -36,6 +38,8 @@ public class Register extends AppCompatActivity {
     FirebaseAuth fAuth;
     ProgressBar progressBar;
     FirebaseFirestore fStore;
+    DatabaseReference reference;
+
     String userID;
 
     @Override
@@ -51,7 +55,7 @@ public class Register extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         progressBar = findViewById(R.id.progressBar);
-
+        reference= FirebaseDatabase.getInstance().getReference().child("Users");
         if (fAuth.getCurrentUser() !=null){
             startActivity(new Intent(getApplicationContext(),MainActivity.class));
             finish();
@@ -85,6 +89,8 @@ public class Register extends AppCompatActivity {
                         if (task.isSuccessful()) {
 
                             FirebaseUser fuser= fAuth.getCurrentUser();
+                            User nuser=new User(fullName,email,password,phone,fuser.getUid());
+                            //reference.child(fuser.getUid())
                             fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
@@ -98,6 +104,8 @@ public class Register extends AppCompatActivity {
                             });
                             Toast.makeText(Register.this, "User created.", Toast.LENGTH_SHORT).show();
                             userID = fAuth.getCurrentUser().getUid();
+
+
                             DocumentReference documentReference = fStore.collection("users").document(userID);
                             Map<String,Object> user=new HashMap<>();
                             user.put("fName",fullName);
@@ -131,6 +139,7 @@ public class Register extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),Login.class));
             }
         });
+
 
         }
 }
